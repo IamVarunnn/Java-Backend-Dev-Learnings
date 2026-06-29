@@ -1,9 +1,9 @@
 class A{
 
-    int age;
+    int age = 10;
 
     public void show(){
-        System.out.println("I am class A");
+        System.out.println("I am class A" + age);
     }
 
     static  class B{
