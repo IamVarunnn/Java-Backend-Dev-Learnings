@@ -14,14 +14,14 @@ public class AA {
 
         Runnable a = () ->{
            
-            for(int i = 1; i <= 1000; i++){
+            for(int i = 1; i <= 1; i++){
                 c.increment();
 
             }
             
         };
         Runnable b = () ->{
-            for(int i = 1; i <= 10000; i++){
+            for(int i = 1; i <= 1; i++){
                 c.increment();
             }
         };
