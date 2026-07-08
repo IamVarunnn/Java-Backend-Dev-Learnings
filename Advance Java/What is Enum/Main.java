@@ -1,35 +1,25 @@
-// package What is Enum;
+
 
 enum Status{
-    PLACED,
-    SHIPPED,
-    DELIVERED;
+    Running, Failed, Success, Pending;
 }
 
-
-
-// enum Status{
-//     Running, Working, Failed, Pending, Success;
-// }
-
-public class Main {
+class Main{
     public static void main(String[] args) {
+       
+        // Status s = Status.Failed;
+
+        // // System.out.println(s.ordinal());
+       
+        // Status[] k = Status.values();
+
+        // System.out.println(k[0]);
+
+        // for(Status kr : s.values()){
+        //     System.out.println(kr);
+        // }
+
+
         
-        Status s = Status.PLACED;
-
-        // System.out.println(s);
-
-        switch (s) {
-            case SHIPPED:
-                System.out.println("Shipped");
-                break;
-            case PLACED:
-                System.out.println("Placed");
-                break;
-            case DELIVERED:
-                System.out.println("Delivered");
-            default:
-                throw new AssertionError();
-        }
     }
 }
