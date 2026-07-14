@@ -21,7 +21,49 @@ public class Demo {
         }
 
 
-        
+        int sum = nums.stream()
+                    .map(i -> i * 2)
+                    .reduce(0, (c , e) -> (c + e));
+
+        // System.out.println(sum);
+
+
+        long seqTime = System.currentTimeMillis();
+        int sum1 = nums.stream()
+                    .map(i -> {
+
+                        try {
+                            Thread.sleep(1);
+                        } catch (Exception e) {
+                        }
+
+                        return i * 2;
+                    })
+                    .mapToInt(i -> i)
+                    .sum();
+        long endTime = System.currentTimeMillis();
+
+        long paraTime = System.currentTimeMillis();
+        int sum2 = nums.parallelStream()
+                    .map(i -> {
+
+                        try {
+                            Thread.sleep(1);
+                        } catch (Exception e) {
+                        }
+
+                        return i * 2;
+                    })
+                    .mapToInt(i -> i)
+                    .sum();
+        long endPara = System.currentTimeMillis();
+
+
+
+        System.out.println(sum1 + " " + sum2);
+        System.out.println("Seq " + (endTime - seqTime));
+        System.out.println("Para " + (endPara - paraTime));
+
 
     }
 }
