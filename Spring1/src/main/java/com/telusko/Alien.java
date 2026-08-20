@@ -1,12 +1,20 @@
 package com.telusko;
 
 
+import java.beans.ConstructorProperties;
+
 public class Alien {
     private int age;
-    Laptop laptop;
+    private Computer comp;
     public Alien(){
-        System.out.println("Object Created");
+//        System.out.println("Object Created");
     }
+
+//    @ConstructorProperties({"age", "lap"})
+//    public Alien(int age, Laptop laptop){
+//        this.age = age;
+//        this.laptop = laptop;
+//    }
 
 
     public int getAge() {
@@ -17,15 +25,15 @@ public class Alien {
         this.age = age;
     }
 
-    public Laptop getLaptop() {
-        return laptop;
+    public Computer getComp() {
+        return comp;
     }
 
-    public void setLaptop(Laptop laptop) {
-        this.laptop = laptop;
+    public void setComp(Computer comp) {
+        this.comp = comp;
     }
 
     public void code(){
-        laptop.compile();
+        comp.compile();
     }
 }

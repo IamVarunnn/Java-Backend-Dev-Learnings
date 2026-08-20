@@ -4,7 +4,11 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- bean definitions here -->
-    <bean id = "alien" class="com.telusko.Alien" ></bean>
+    <bean id = "alien" class="com.telusko.Alien" >
+        <property name="age" value="34"/>
+        <property name="lap" ref="lap"/>
+    </bean>
+
     <bean id = "lap" class="com.telusko.Laptop"></bean>
 
 </beans>

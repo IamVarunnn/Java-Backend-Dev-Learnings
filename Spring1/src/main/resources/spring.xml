@@ -6,16 +6,22 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- bean definitions here -->
-    <bean id = "alien" class = "com.telusko.Alien">
+    <bean id = "alien" class = "com.telusko.Alien " autowire="byName">
+            <property name="comp" ref="com1"/>
+<!--        <constructor-arg name = "lap" ref="lapR" />-->
+<!--        <constructor-arg name = "age"  value="21" />-->
 
-        <property name="age" value="21" ></property>
-        <property name="laptop" ref="lapR"></property>
 
+<!--        <property name="laptop" ref="lapR"></property>-->
+<!--            <property name="age" value="21"/>-->
+<!--            <property name="comp" ref="com"/>-->
     </bean>
 
 
 
-    <bean id="lapR" class="com.telusko.Laptop" ></bean>
+    <bean id = "comp" class="com.telusko.Laptop"></bean>
+    <bean id="com1" class="com.telusko.Desktop" ></bean>
+<!--    <bean id="lapR" class="com.telusko.Laptop" ></bean>-->
 
 </beans>
 

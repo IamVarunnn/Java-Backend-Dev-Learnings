@@ -11,9 +11,13 @@ public class App
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
         Alien a = (Alien) context.getBean("alien");
+//        a.setAge(21);
+        System.out.println(a.getAge());
+
+//        a.setAge(21);
+        System.out.println(a.getAge());
         a.code();
 
-        Laptop laptop = (Laptop) context.getBean("lap");
-        laptop.use();
+
     }
 }
