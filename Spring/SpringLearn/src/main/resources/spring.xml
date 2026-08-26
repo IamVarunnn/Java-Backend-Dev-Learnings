@@ -26,6 +26,8 @@
             <bean id="comp1" class="com.telusko.Laptop" ></bean>
         </property>
 
+
+
     </bean>
 
 
