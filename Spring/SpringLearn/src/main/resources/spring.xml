@@ -5,36 +5,51 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- bean definitions here -->
-
 <!--    <bean id="alien" class="com.telusko.Alien" scope="prototype" ></bean>-->
+<!--    <bean id="lap" class="com.telusko.Laptop" ></bean>-->
+
+
+<!--    <bean id="alien" class="com.telusko.Alien" >-->
+<!--        <property name="age" value="34"/>-->
+<!--        <property name="laptop" ref="lap_ref" />-->
+<!--    </bean>-->
+
+<!--    <bean id="alien" class="com.telusko.Alien" >-->
+<!--        <constructor-arg value="34"/>-->
+<!--        <constructor-arg ref="lap_ref" />-->
+<!--    </bean>-->
+
+<!--    <bean id="alien" class="com.telusko.Alien" >-->
+<!--        <constructor-arg index="1" ref="lap_ref" />-->
+<!--        <constructor-arg index="0" value="34"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="alien" class="com.telusko.Alien" >-->
+<!--        <constructor-arg type="com.telusko.Laptop" ref="lap_ref" />-->
+<!--        <constructor-arg type="int" value="34"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="alien" class="com.telusko.Alien" >-->
+<!--        <constructor-arg name = "laptop" ref="lap_ref" />-->
+<!--        <constructor-arg name="age" value="34"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="alien" class="com.telusko.Alien" autowire="byType">-->
+<!--        <property name="computer" ref="computer1"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="lap_ref" class="com.telusko.Laptop" ></bean>-->
+<!--    <bean id="computer1" class="com.telusko.Laptop" primary="true" ></bean>-->
+<!--    <bean id="computer2" class="com.telusko.Desktop" lazy-init="true" ></bean>-->
+
     <bean id="alien" class="com.telusko.Alien" autowire="byType">
-<!--        <property name="age" value="21"/>-->
-<!--        <property name="laptop" ref="laptop_ref"/>-->
-<!--        <constructor-arg type="com.telusko.Laptop" ref="laptop_ref"/>-->
-<!--        <constructor-arg type="int" value="24"/>-->
+        <property name="computer" >
+            <bean id="computer1" class="com.telusko.Laptop"  >
 
-<!--        <constructor-arg index="0" value="24"/>-->
-<!--        <constructor-arg index="1" ref="laptop_ref"/>-->
-
-<!--        <constructor-arg name="laptop1" ref="laptop_ref"/>-->
-<!--        <constructor-arg name="age" value="24"/>-->
-
-
-        <property name="age" value="24"/>
-<!--        <property name="comp" ref="comp1"/>-->
-        <property name="comp">
-            <bean id="comp1" class="com.telusko.Laptop" ></bean>
+            </bean>
         </property>
-
-
-
     </bean>
 
 
-<!--    <bean id="comp1" class="com.telusko.Laptop" primary="true" ></bean>-->
-<!--    <bean id="comp2" class="com.telusko.Desktop" lazy-init="true" ></bean>-->
-
-<!--    <bean id="comp1" class="com.telusko.Laptop" ></bean>-->
-<!--    <bean class="com.telusko.Desktop" lazy-init="true"  ></bean>-->
-
+<!--    <bean id="computer2" class="com.telusko.Desktop" lazy-init="true" ></bean>-->
 </beans>

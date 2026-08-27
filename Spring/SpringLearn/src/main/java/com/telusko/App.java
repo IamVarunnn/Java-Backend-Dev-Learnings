@@ -9,24 +9,23 @@ public class App
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
-//        Alien a = (Alien) (context.getBean("alien"));
-//
-//        System.out.println(a.getAge());
-//
-//        a.code();
+//        Alien obj = (Alien) context.getBean("alien");
+//        obj.code();
 
 
-//        Alien a = context.getBean("alien", Alien.class);
-//        a.code();
-//
-//        Laptop laptop = context.getBean("comp1", Laptop.class);
-//        laptop.compile();
-
-//        Desktop desktop = context.getBean(Desktop.class);
-//        desktop.compile();
+//        Alien obj1 = (Alien) context.getBean("alien");
+//        obj1.setAge(45);
+//        System.out.println(obj1.getAge());
 
 
+//        Alien obj1 = (Alien) context.getBean("alien");
+////        System.out.println(obj1.getAge());
+//        obj1.code();
 
 
+//        Desktop obj2 = (Desktop) context.getBean("computer2");
+
+        Alien alien = context.getBean("alien", Alien.class);
+        alien.code();
     }
 }

@@ -3,23 +3,20 @@ package com.telusko;
 import java.beans.ConstructorProperties;
 
 public class Alien {
-
-
     private int age;
-
-    private Computer comp;
-
+    private Computer computer;
     public Alien(){
-//        System.out.println("Object Created");
+        System.out.println("Object Created");
     }
 
-//    @ConstructorProperties({"age", "laptop1"})
-//    public Alien(int age, Computer comp){
-//        System.out.println("ParaCons Called");
-//        this.age = age;
-//        this.comp = comp;
-//    }
 
+
+//    @ConstructorProperties({"age", "laptop"})
+//    public Alien(int age, Laptop laptop){
+//        System.out.println("Para Constructor Called");
+//        this.age = age;
+//        this.laptop = laptop;
+//    }
     public int getAge() {
         return age;
     }
@@ -28,18 +25,17 @@ public class Alien {
         this.age = age;
     }
 
-
-
-    public Computer getComp() {
-        return comp;
+    public Computer getComputer() {
+        return computer;
     }
 
-    public void setComp(Computer comp) {
-        this.comp = comp;
+    public void setComputer(Computer computer) {
+        this.computer = computer;
     }
 
     public void code(){
         System.out.println("Coding");
-        comp.compile();
+        computer.compile();
     }
+
 }

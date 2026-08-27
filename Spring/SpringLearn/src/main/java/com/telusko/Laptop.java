@@ -2,8 +2,8 @@ package com.telusko;
 
 public class Laptop implements Computer {
 
-    public Laptop(){
-        System.out.println("Laptop created");
+    Laptop(){
+        System.out.println("Laptop Created");
     }
 
     @Override
