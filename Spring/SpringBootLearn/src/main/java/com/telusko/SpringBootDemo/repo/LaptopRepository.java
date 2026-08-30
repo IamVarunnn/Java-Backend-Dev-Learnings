@@ -1,4 +1,4 @@
-package com.telusko.SpringBootDemo;
+package com.telusko.SpringBootDemo.repo;
 
 import com.telusko.SpringBootDemo.model.Laptop;
 import org.springframework.stereotype.Repository;

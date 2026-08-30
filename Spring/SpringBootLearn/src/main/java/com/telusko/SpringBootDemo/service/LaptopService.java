@@ -1,6 +1,6 @@
 package com.telusko.SpringBootDemo.service;
 
-import com.telusko.SpringBootDemo.LaptopRepository;
+import com.telusko.SpringBootDemo.repo.LaptopRepository;
 import com.telusko.SpringBootDemo.model.Laptop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
