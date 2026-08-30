@@ -1,4 +1,4 @@
-package com.telusko.SpringBootDemo;
+package com.telusko.SpringBootDemo.model;
 
 
 public interface Computer {
