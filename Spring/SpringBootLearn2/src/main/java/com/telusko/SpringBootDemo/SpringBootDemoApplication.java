@@ -2,6 +2,7 @@ package com.telusko.SpringBootDemo;
 
 import com.telusko.SpringBootDemo.model.Alien;
 import com.telusko.SpringBootDemo.model.Laptop;
+import com.telusko.SpringBootDemo.repo.LaptopRepository;
 import com.telusko.SpringBootDemo.service.LaptopService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +25,7 @@ public class SpringBootDemoApplication {
 
 		Laptop laptop = context.getBean(Laptop.class);
 		service.addLaptop(laptop);
+		service.save(laptop);
 
 	}
 
