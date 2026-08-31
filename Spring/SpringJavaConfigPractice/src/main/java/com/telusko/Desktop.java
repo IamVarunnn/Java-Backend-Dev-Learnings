@@ -1,6 +1,11 @@
 package com.telusko;
 
-public class Desktop {
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Component
+@Primary
+public class Desktop implements Computer{
 
     public Desktop(){
         System.out.println("Desktop Created");
