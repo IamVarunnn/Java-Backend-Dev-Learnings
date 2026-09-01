@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Alien {
+
+
     @Autowired
     Laptop laptop;
 

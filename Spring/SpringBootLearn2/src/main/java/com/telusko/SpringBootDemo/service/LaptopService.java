@@ -11,7 +11,7 @@ public class LaptopService {
 
     @Autowired
     private LaptopRepository repository;
-
+a
     public void save(Laptop laptop){
         repository.save(laptop);
     }
