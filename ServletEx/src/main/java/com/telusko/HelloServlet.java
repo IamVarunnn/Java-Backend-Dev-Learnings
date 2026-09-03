@@ -15,8 +15,8 @@ public class HelloServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("In Service");
 
+        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-
-        out.println("Thanks for using");
+        out.println("<i>Hello People<i/>");
     }
 }
