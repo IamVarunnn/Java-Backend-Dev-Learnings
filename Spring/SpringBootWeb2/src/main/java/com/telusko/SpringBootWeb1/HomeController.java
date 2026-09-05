@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
 //    @GetMapping
+//    @RequestMapping("/")
+//    public String home(){
+//        return "index.jsp";
+//    }
+
     @RequestMapping("/")
     public String home(){
-        return "index.jsp";
+        return "index";
     }
 
 //    @RequestMapping("add")
@@ -31,15 +37,39 @@ public class HomeController {
 //        return "result.jsp";
 //    }
 
+//    @RequestMapping("add")
+//    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, HttpSession session){
+//
+//        int result = a + b;
+//
+//        session.setAttribute("result", result);
+//
+//        System.out.println(result);
+//
+//        return "result.jsp";
+//    }
+
+//    @RequestMapping("add")
+//    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, Model model){
+//
+//        int result = a + b;
+//
+//        model.addAttribute("result", result);
+//
+//        System.out.println(result);
+//
+//        return "result.jsp";
+//    }
+
     @RequestMapping("add")
-    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, HttpSession session){
+    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, Model model){
 
         int result = a + b;
 
-        session.setAttribute("result", result);
+        model.addAttribute("result", result);
 
         System.out.println(result);
 
-        return "result.jsp";
+        return "result";
     }
 }
