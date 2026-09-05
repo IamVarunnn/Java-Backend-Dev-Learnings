@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -16,12 +17,24 @@ public class HomeController {
         return "index.jsp";
     }
 
-    @RequestMapping("add")
-    public String add(HttpServletRequest request, HttpSession session){
-        int num1 = Integer.parseInt(request.getParameter("num1"));
-        int num2 = Integer.parseInt(request.getParameter("num2"));
+//    @RequestMapping("add")
+//    public String add(HttpServletRequest request, HttpSession session){
+//        int num1 = Integer.parseInt(request.getParameter("num1"));
+//        int num2 = Integer.parseInt(request.getParameter("num2"));
+//
+//        int result = num1 + num2;
+//
+//        session.setAttribute("result", result);
+//
+//        System.out.println(result);
+//
+//        return "result.jsp";
+//    }
 
-        int result = num1 + num2;
+    @RequestMapping("add")
+    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, HttpSession session){
+
+        int result = a + b;
 
         session.setAttribute("result", result);
 
