@@ -5,19 +5,27 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionEvent;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
 
 
 //    @GetMapping("/")
+//    @RequestMapping("/")
+//    public String home(){
+//        System.out.println("Home Method Called");
+//        return "index.jsp";
+//    }
+
     @RequestMapping("/")
     public String home(){
         System.out.println("Home Method Called");
-        return "index.jsp";
+        return "index";
     }
 
 //    @RequestMapping("add")
@@ -32,14 +40,47 @@ public class HomeController {
 //        return "result.jsp";
 //    }
 
+//    @RequestMapping("add")
+//    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, HttpSession session){
+//        System.out.println("Add Called");
+//
+//
+//        int result = a + b;
+//        session.setAttribute("result", result);
+//        System.out.println(result);
+//        return "result.jsp";
+//    }
+
+//    @RequestMapping("add")
+//    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, Model model){
+//        System.out.println("Add Called");
+//
+//
+//        int result = a + b;
+//        model.addAttribute("result", result);
+//        System.out.println(result);
+//        return "result.jsp";
+//    }
+
+//    @RequestMapping("add")
+//    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, Model model){
+//        System.out.println("Add Called");
+//
+//
+//        int result = a + b;
+//        model.addAttribute("result", result);
+//        System.out.println(result);
+//        return "result";
+//    }
+
     @RequestMapping("add")
-    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, HttpSession session){
+    public ModelAndView add(@RequestParam("num1")int a, @RequestParam("num2")int b, ModelAndView mv){
         System.out.println("Add Called");
-
-
         int result = a + b;
-        session.setAttribute("result", result);
-        System.out.println(result);
-        return "result.jsp";
+
+        mv.addObject("result", result);
+        mv.setViewName("result");
+
+        return mv;
     }
 }
