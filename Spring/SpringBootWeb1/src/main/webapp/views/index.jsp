@@ -7,16 +7,16 @@
     <body>
         <h1>Add Two Numbers</h1>
 
-        <form action="add">
-            <label>First Number:</label>
-            <input type="number" name="num1" required>
+        <form action="addAlien">
+            <label>Enter Id:</label>
+            <input type="text" id = "aid" name="aid">
             <br><br>
 
-            <label>Second Number:</label>
-            <input type="number" name="num2" required>
+            <label>Enter Name:</label>
+            <input type="text" id = "aname" name="aname" >
             <br><br>
 
-            <input type="submit" value="submit">
+            <input type="submit" value="Submit">
         </form>
 
 

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSessionEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,6 +74,17 @@ public class HomeController {
 //        return "result";
 //    }
 
+//    @RequestMapping("add")
+//    public ModelAndView add(@RequestParam("num1")int a, @RequestParam("num2")int b, ModelAndView mv){
+//        System.out.println("Add Called");
+//        int result = a + b;
+//
+//        mv.addObject("result", result);
+//        mv.setViewName("result");
+//
+//        return mv;
+//    }
+
     @RequestMapping("add")
     public ModelAndView add(@RequestParam("num1")int a, @RequestParam("num2")int b, ModelAndView mv){
         System.out.println("Add Called");
@@ -82,5 +94,36 @@ public class HomeController {
         mv.setViewName("result");
 
         return mv;
+    }
+
+//    @RequestMapping("addAlien")
+//    public ModelAndView addAlien(@RequestParam("aid")int aid, @RequestParam("aname")String aname, ModelAndView mv){
+//        System.out.println("Add Alien Called");
+//
+//        Alien alien = new Alien();
+//        alien.setAid(aid);
+//        alien.setAname(aname);
+//
+//        mv.addObject("alien", alien);
+//        mv.setViewName("result");
+//
+//        return mv;
+//    }
+
+//    @RequestMapping("addAlien")
+//    public ModelAndView addAlien(Alien alien, ModelAndView mv){
+//        System.out.println("Add Alien Called");
+//
+//        mv.addObject("alien", alien);
+//        mv.setViewName("result");
+//
+//        return mv;
+//    }
+
+    @RequestMapping("addAlien")
+    public String addAlien(@ModelAttribute("aliens") Alien alien){
+        System.out.println("Add Alien Called");
+
+        return "result";
     }
 }

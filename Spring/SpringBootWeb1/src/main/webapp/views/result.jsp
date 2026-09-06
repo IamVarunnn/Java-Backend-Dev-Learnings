@@ -5,8 +5,8 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Result is : Hello</h1>
-        <h2>Result is : ${result}  </h2>
+        <h1>Welcome </h1>
+        <h2> ${aliens}  </h2>
 
 
 
