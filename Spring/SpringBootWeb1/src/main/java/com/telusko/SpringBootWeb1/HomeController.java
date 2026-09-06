@@ -31,6 +31,7 @@ public class HomeController {
     @ModelAttribute("course")
     public String courseName(){
         return "Java";
+
     }
 
 //    @RequestMapping("add")
