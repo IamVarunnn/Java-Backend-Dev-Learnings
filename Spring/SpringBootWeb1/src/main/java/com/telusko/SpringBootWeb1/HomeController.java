@@ -28,6 +28,10 @@ public class HomeController {
         System.out.println("Home Method Called");
         return "index";
     }
+    @ModelAttribute("course")
+    public String courseName(){
+        return "Java";
+    }
 
 //    @RequestMapping("add")
 //    public String add(HttpServletRequest request, HttpSession session){
