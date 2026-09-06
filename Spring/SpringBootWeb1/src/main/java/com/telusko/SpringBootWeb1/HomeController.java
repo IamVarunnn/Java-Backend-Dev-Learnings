@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSessionEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -19,13 +20,24 @@ public class HomeController {
         return "index.jsp";
     }
 
+//    @RequestMapping("add")
+//    public String add(HttpServletRequest request, HttpSession session){
+//        System.out.println("Add Called");
+//
+//        int num1 = Integer.parseInt(request.getParameter("num1"));
+//        int num2 = Integer.parseInt(request.getParameter("num2"));
+//        int result = num1 + num2;
+//        session.setAttribute("result", result);
+//        System.out.println(result);
+//        return "result.jsp";
+//    }
+
     @RequestMapping("add")
-    public String add(HttpServletRequest request, HttpSession session){
+    public String add(@RequestParam("num1")int a, @RequestParam("num2")int b, HttpSession session){
         System.out.println("Add Called");
 
-        int num1 = Integer.parseInt(request.getParameter("num1"));
-        int num2 = Integer.parseInt(request.getParameter("num2"));
-        int result = num1 + num2;
+
+        int result = a + b;
         session.setAttribute("result", result);
         System.out.println(result);
         return "result.jsp";
