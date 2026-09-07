@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Component
 public class JobPost {
 
@@ -17,8 +17,6 @@ public class JobPost {
     private String postProfile;
     private String postDesc;
     private int reqExperience;
-
     private List<String> postTechStack;
-
 
 }
