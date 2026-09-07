@@ -19,4 +19,6 @@ public class JobPost {
     private int reqExperience;
     private List<String> postTechStack;
 
+
+
 }
