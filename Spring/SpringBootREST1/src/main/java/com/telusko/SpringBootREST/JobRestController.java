@@ -5,6 +5,7 @@ import com.telusko.SpringBootREST.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +27,13 @@ public class JobRestController {
         return jobService.getAllJobs();
     }
 
-    @GetMapping("jobPost/3")
-    public JobPost getJob(){
-        return jobService.getJob(3);
+//    @GetMapping("jobPost/3")
+//    public JobPost getJob(){
+//        return jobService.getJob(3);
+//    }
+
+    @GetMapping("jobPost/{postId}")
+    public JobPost getJob(@PathVariable("postId") int postId){
+        return jobService.getJob(postId);
     }
 }

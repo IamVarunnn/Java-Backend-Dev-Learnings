@@ -27,11 +27,11 @@ public class JobRepo {
         System.out.println(jobs);
     }
 
-    public JobPost getJob(int id){
+    public JobPost getJob(int postId){
 
         for(JobPost post : jobs){
 
-            if(post.getPostId() == id){
+            if(post.getPostId() == postId){
                 return post;
             }
         }
