@@ -34,8 +34,34 @@ public class JobRestController {
         return jobService.getJob(postId);
     }
 
+//    @PostMapping("jobPost")
+//    public void addJob(@RequestBody JobPost jobPost){
+//        jobService.addJob(jobPost);
+//    }
+
+//    @PostMapping("jobPost")
+//    public JobPost addJob(@RequestBody JobPost jobPost){
+//        jobService.addJob(jobPost);
+//        return jobPost;
+//    }
+
     @PostMapping("jobPost")
-    public void addJob(@RequestBody JobPost jobPost){
+    public JobPost addJob(@RequestBody JobPost jobPost){
         jobService.addJob(jobPost);
+        return jobService.getJob(jobPost.getPostId());
+    }
+
+
+    @PutMapping("jobPost")
+    public JobPost updateJob(@RequestBody JobPost jobPost){
+        jobService.updateJob(jobPost);
+        return jobService.getJob(jobPost.getPostId());
+    }
+
+
+    @DeleteMapping("jobPost/{postId}")
+    public String deleteJobPost(@PathVariable int postId){
+        jobService.deleteJob(postId);
+        return "Deleted";
     }
 }
