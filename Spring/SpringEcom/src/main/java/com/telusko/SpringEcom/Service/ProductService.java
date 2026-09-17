@@ -13,6 +13,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepo productRepo;
+
+
+
     public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
@@ -34,4 +37,10 @@ public class ProductService {
     public void deleteProduct(int id) {
         productRepo.deleteById(id);
     }
+
+    public List<Product> searchProducts(String keyword) {
+        return productRepo.searchProducts(keyword);
+    }
+
+
 }
