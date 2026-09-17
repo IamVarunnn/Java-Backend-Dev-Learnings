@@ -21,6 +21,8 @@ public class OrderItem {
 
     @ManyToOne
     private Product product;
+
+    private int quantity;
     private BigDecimal totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
