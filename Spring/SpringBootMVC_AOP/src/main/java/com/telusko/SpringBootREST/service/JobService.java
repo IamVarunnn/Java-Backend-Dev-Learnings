@@ -23,6 +23,7 @@ public class JobService {
     }
 
     public JobPost getJob(int postId){
+
         return jobRepo.findById(postId).orElse(new JobPost());
     }
 
