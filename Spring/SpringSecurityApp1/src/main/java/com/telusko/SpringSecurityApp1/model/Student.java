@@ -1,4 +1,4 @@
-package com.telusko.SpringSecurityApp1;
+package com.telusko.SpringSecurityApp1.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
