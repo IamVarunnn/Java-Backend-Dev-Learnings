@@ -1,4 +1,4 @@
-package com.telusko.SpringBootREST;
+package com.telusko.SpringBootREST.controller;
 
 import com.telusko.SpringBootREST.model.JobPost;
 import com.telusko.SpringBootREST.service.JobService;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 //@Controller
 @RestController
 public class JobRestController {
@@ -20,7 +21,7 @@ public class JobRestController {
 //    }
 
     @GetMapping(path = "jobPosts", produces = {"application/json"})
-    public List<JobPost> getAllJobs(){
+    public List<JobPost> getAllJobs() {
         return jobService.getAllJobs();
     }
 
@@ -30,12 +31,12 @@ public class JobRestController {
 //    }
 
     @GetMapping("jobPost/{postId}")
-    public JobPost getJob(@PathVariable("postId") int postId){
+    public JobPost getJob(@PathVariable("postId") int postId) {
         return jobService.getJob(postId);
     }
 
     @GetMapping("jobPosts/keyword/{keyword}")
-    public List<JobPost> searchByKeyword(@PathVariable("keyword") String keyword){
+    public List<JobPost> searchByKeyword(@PathVariable("keyword") String keyword) {
         return jobService.search(keyword);
     }
 
@@ -51,27 +52,27 @@ public class JobRestController {
 //    }
 
     @PostMapping(path = "jobPost", consumes = "application/xml")
-    public JobPost addJob(@RequestBody JobPost jobPost){
+    public JobPost addJob(@RequestBody JobPost jobPost) {
         jobService.addJob(jobPost);
         return jobService.getJob(jobPost.getPostId());
     }
 
 
     @PutMapping("jobPost")
-    public JobPost updateJob(@RequestBody JobPost jobPost){
+    public JobPost updateJob(@RequestBody JobPost jobPost) {
         jobService.updateJob(jobPost);
         return jobService.getJob(jobPost.getPostId());
     }
 
 
     @DeleteMapping("jobPost/{postId}")
-    public String deleteJobPost(@PathVariable int postId){
+    public String deleteJobPost(@PathVariable int postId) {
         jobService.deleteJob(postId);
         return "Deleted";
     }
 
     @GetMapping("load")
-    public String loadData(){
+    public String loadData() {
         jobService.load();
         return "Success";
     }
