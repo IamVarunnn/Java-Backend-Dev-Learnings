@@ -1,13 +1,13 @@
-package com.telusko.SpringBootWeb1;
+package com.telusko.SpringSecurityApp1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootWeb1Application {
+public class SpringSecurityApp1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootWeb1Application.class, args);
+		SpringApplication.run(SpringSecurityApp1Application.class, args);
 	}
 
 }
