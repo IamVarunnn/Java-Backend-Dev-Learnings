@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "8080:8080"
+    networks:
+      - k-network
     depends_on:
       mysql:
         condition: service_healthy
@@ -19,3 +21,15 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - k-network
+    volumes:
+      - mysql-s-data:/var/lib/mysql
+
+networks:
+  k-network:
+    driver: bridge
+
+
+volumes:
+    mysql-s-data:
