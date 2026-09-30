@@ -14,6 +14,7 @@ public class OllamaAIController {
 //    private  OllamaChatModel ollamaChatModel;
 
 
+
 //    public OllamaAIController(OllamaChatModel ollamaChatModel){
 //        this.ollamaChatModel = ollamaChatModel;
 //    }
