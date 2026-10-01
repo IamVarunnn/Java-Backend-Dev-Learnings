@@ -1,6 +1,7 @@
 package com.telusko.SpringAIApp1;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,13 +36,30 @@ public class OllamaAIController {
     }
 
 
+//    @GetMapping("/api/{message}")
+//    public ResponseEntity<String> getAnswer(@PathVariable String message){
+//
+//        String response = chatClient
+//                .prompt(message)
+//                .call()
+//                .content();
+//
+//        return ResponseEntity.ok(response);
+//    }
+
+
     @GetMapping("/api/{message}")
     public ResponseEntity<String> getAnswer(@PathVariable String message){
 
-        String response = chatClient
+        ChatResponse chatResponse = chatClient
                 .prompt(message)
                 .call()
-                .content();
+                .chatResponse();
+
+        String response = chatResponse
+                .getResult()
+                .getOutput()
+                .getText();
 
         return ResponseEntity.ok(response);
     }
