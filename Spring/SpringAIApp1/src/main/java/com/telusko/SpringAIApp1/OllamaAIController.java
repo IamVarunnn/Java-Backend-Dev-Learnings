@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
+//import org.springframework.web.bind.annotation.RestController;
+//
+//@RestController
 public class OllamaAIController {
 
 
@@ -70,44 +70,44 @@ public class OllamaAIController {
 //        return ResponseEntity.ok(response);
 //    }
 
-    private ChatClient chatClient;
-
-    public OllamaAIController(ChatClient.Builder builder) {
-
-        ChatMemory chatMemory = MessageWindowChatMemory.builder()
-                .chatMemoryRepository(new InMemoryChatMemoryRepository())
-                .maxMessages(20)
-                .build();
-
-        this.chatClient = builder
-                .defaultAdvisors(
-                        MessageChatMemoryAdvisor.builder(chatMemory).build()
-                )
-                .build();
-    }
-
-    @GetMapping("/api/{message}")
-    public ResponseEntity<String> getAnswer(@PathVariable String message){
-
-        ChatResponse chatResponse = chatClient
-                .prompt()
-                .user(message)
-                .advisors(a -> a.param(
-                        ChatMemory.CONVERSATION_ID,
-                        "user1"
-                ))
-                .call()
-                .chatResponse();
-
-        System.out.println(chatResponse.getMetadata().getModel());
-
-        String response = chatResponse
-                .getResult()
-                .getOutput()
-                .getText();
-
-        return ResponseEntity.ok(response);
-    }
-
+//    private ChatClient chatClient;
+//
+//    public OllamaAIController(ChatClient.Builder builder) {
+//
+//        ChatMemory chatMemory = MessageWindowChatMemory.builder()
+//                .chatMemoryRepository(new InMemoryChatMemoryRepository())
+//                .maxMessages(20)
+//                .build();
+//
+//        this.chatClient = builder
+//                .defaultAdvisors(
+//                        MessageChatMemoryAdvisor.builder(chatMemory).build()
+//                )
+//                .build();
+//    }
+//
+//    @GetMapping("/api/{message}")
+//    public ResponseEntity<String> getAnswer(@PathVariable String message){
+//
+//        ChatResponse chatResponse = chatClient
+//                .prompt()
+//                .user(message)
+//                .advisors(a -> a.param(
+//                        ChatMemory.CONVERSATION_ID,
+//                        "user1"
+//                ))
+//                .call()
+//                .chatResponse();
+//
+//        System.out.println(chatResponse.getMetadata().getModel());
+//
+//        String response = chatResponse
+//                .getResult()
+//                .getOutput()
+//                .getText();
+//
+//        return ResponseEntity.ok(response);
+//    }
+//
 
 }
