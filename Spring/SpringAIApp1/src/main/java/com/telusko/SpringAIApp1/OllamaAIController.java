@@ -29,24 +29,48 @@ public class OllamaAIController {
 //    }
 
 //    With Chat Client
-    private ChatClient chatClient;
-
-    public OllamaAIController(OllamaChatModel ollamaChatModel){
-        this.chatClient = ChatClient.create(ollamaChatModel);
-    }
-
-
+//    private ChatClient chatClient;
+//
+//    public OllamaAIController(OllamaChatModel ollamaChatModel){
+//        this.chatClient = ChatClient.create(ollamaChatModel);
+//    }
+//
+//
+////    @GetMapping("/api/{message}")
+////    public ResponseEntity<String> getAnswer(@PathVariable String message){
+////
+////        String response = chatClient
+////                .prompt(message)
+////                .call()
+////                .content();
+////
+////        return ResponseEntity.ok(response);
+////    }
+//
+//
 //    @GetMapping("/api/{message}")
 //    public ResponseEntity<String> getAnswer(@PathVariable String message){
 //
-//        String response = chatClient
+//        ChatResponse chatResponse = chatClient
 //                .prompt(message)
 //                .call()
-//                .content();
+//                .chatResponse();
+//
+//        System.out.println(chatResponse.getMetadata().getModel());
+//
+//        String response = chatResponse
+//                .getResult()
+//                .getOutput()
+//                .getText();
 //
 //        return ResponseEntity.ok(response);
 //    }
 
+    private ChatClient chatClient;
+
+    public OllamaAIController(ChatClient.Builder builder){
+        this.chatClient = builder.build();
+    }
 
     @GetMapping("/api/{message}")
     public ResponseEntity<String> getAnswer(@PathVariable String message){
@@ -65,4 +89,6 @@ public class OllamaAIController {
 
         return ResponseEntity.ok(response);
     }
+
+
 }
