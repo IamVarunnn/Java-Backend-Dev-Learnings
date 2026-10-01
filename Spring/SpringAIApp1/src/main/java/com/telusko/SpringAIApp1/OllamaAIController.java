@@ -56,6 +56,8 @@ public class OllamaAIController {
                 .call()
                 .chatResponse();
 
+        System.out.println(chatResponse.getMetadata().getModel());
+
         String response = chatResponse
                 .getResult()
                 .getOutput()
