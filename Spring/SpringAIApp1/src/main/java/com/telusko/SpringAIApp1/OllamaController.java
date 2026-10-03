@@ -8,12 +8,16 @@ import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +27,9 @@ public class OllamaController {
     private ChatClient chatClient;
     @Autowired
     private EmbeddingModel embeddingModel;
+
+    @Autowired
+    private VectorStore vectorStore;
 
     public OllamaController(OllamaChatModel chatModel) {
         this.chatClient = ChatClient.create(chatModel);
@@ -112,8 +119,9 @@ public class OllamaController {
     }
 
     @PostMapping("/api/product")
-    public String getProducts(@RequestParam String text){
+    public List<Document> getProducts(@RequestParam String text){
 
-        return "Get it";
+
+         return vectorStore.similaritySearch(text);
     }
 }
