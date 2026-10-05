@@ -1,20 +1,19 @@
 package com.telusko.SpringAIApp1;
 
-import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.vectorstore.SimpleVectorStore;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 
 @Configuration
 public class AppConfig {
 
     @Bean
-    public VectorStore vectorStore(JdbcTemplate jdbcTemplate, EmbeddingModel embeddingModel){
-        return PgVectorStore.builder(jdbcTemplate, embeddingModel)
-                .dimensions(768)
-                .build();
+    public JedisConnectionFactory redisConnectionFactory() {
+
+        RedisStandaloneConfiguration config =
+                new RedisStandaloneConfiguration("localhost", 6379);
+
+        return new JedisConnectionFactory(config);
     }
 }
