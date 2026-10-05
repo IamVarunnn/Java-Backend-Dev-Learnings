@@ -1,5 +1,7 @@
 package com.telusko.SpringAIApp1;
 
+import org.springframework.ai.audio.transcription.AudioTranscriptionOptions;
+import org.springframework.ai.audio.transcription.AudioTranscriptionPrompt;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.util.MimeTypeUtils;
@@ -20,6 +22,8 @@ public class AudioGenController {
 
     @PostMapping("/api/stt")
     public String speechToText(@RequestParam MultipartFile file) {
+
+
 
         return chatClient.prompt()
                 .user(us -> us
