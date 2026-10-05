@@ -2,6 +2,8 @@ package com.telusko.SpringAIApp1;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
@@ -109,7 +111,7 @@ public class OllamaController {
 
         for(int i = 0; i < embedding1.length; i++){
 
-            dotProduct += embedding1[i] + embedding2[i];
+            dotProduct += embedding1[i] * embedding2[i];
             norm1 += Math.pow(embedding1[i], 2);
             norm2 += Math.pow(embedding2[i], 2);
         }
@@ -126,6 +128,16 @@ public class OllamaController {
 //         return vectorStore.similaritySearch(text);
 
         return vectorStore.similaritySearch(SearchRequest.builder().query(text).topK(2).build());
+    }
+
+    @PostMapping("/api/ask")
+    public String getAnswerRag(@RequestParam String query) {
+
+        return chatClient
+                .prompt(query)
+                .advisors(QuestionAnswerAdvisor.builder(vectorStore).build())
+                .call()
+                .content();
     }
 
 }
