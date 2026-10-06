@@ -45,6 +45,18 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/product/generate-description")
+    public ResponseEntity<String> generateDescription(@RequestParam String name, @RequestParam String category){
+
+        try{
+            String aiDesc = productService.generateDescription(name, category);
+            return new ResponseEntity<>(aiDesc, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile){
@@ -88,5 +100,6 @@ public class ProductController {
         System.out.println("searching with " + keyword);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
 
 }
