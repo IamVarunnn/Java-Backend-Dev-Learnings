@@ -1,4 +1,4 @@
-package com.telusko.SpringEcom.Config;
+package com.telusko.SpringEcom.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

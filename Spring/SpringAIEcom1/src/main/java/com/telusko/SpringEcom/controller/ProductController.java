@@ -57,6 +57,19 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/product/generate-image")
+    public ResponseEntity<?> generateImage(@RequestParam String name, @RequestParam String category, @RequestParam String description){
+
+        try{
+
+            byte[] aiImage = productService.generateImage(name, category, description);
+            return new ResponseEntity<>(aiImage, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile){
