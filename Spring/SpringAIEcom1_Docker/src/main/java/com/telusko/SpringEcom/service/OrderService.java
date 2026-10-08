@@ -1,96 +1,204 @@
 package com.telusko.SpringEcom.service;
 
+import com.telusko.SpringEcom.model.Order;
+import com.telusko.SpringEcom.model.OrderItem;
+import com.telusko.SpringEcom.model.Product;
 import com.telusko.SpringEcom.model.dto.OrderItemRequest;
 import com.telusko.SpringEcom.model.dto.OrderItemResponse;
 import com.telusko.SpringEcom.model.dto.OrderRequest;
 import com.telusko.SpringEcom.model.dto.OrderResponse;
-import com.telusko.SpringEcom.model.Order;
-import com.telusko.SpringEcom.model.OrderItem;
-import com.telusko.SpringEcom.model.Product;
 import com.telusko.SpringEcom.repo.OrderRepo;
 import com.telusko.SpringEcom.repo.ProductRepo;
+
+import org.springframework.ai.document.Document;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class OrderService {
+
     @Autowired
     private ProductRepo productRepo;
+
     @Autowired
     private OrderRepo orderRepo;
-    public OrderResponse placeOrder(OrderRequest orderRequest) {
+
+    @Autowired
+    private VectorStore vectorStore;
+
+
+    public OrderResponse placeOrder(OrderRequest request) {
+
         Order order = new Order();
-        String orderId = "ORD" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
+        String orderId = "ORD"
+                + UUID.randomUUID()
+                .toString()
+                .substring(0, 8)
+                .toUpperCase();
+
         order.setOrderId(orderId);
-        order.setCustomerName(orderRequest.customerName());
-        order.setEmail(orderRequest.email());
+        order.setCustomerName(request.customerName());
+        order.setEmail(request.email());
         order.setStatus("PLACED");
         order.setOrderDate(LocalDate.now());
 
+
         List<OrderItem> orderItems = new ArrayList<>();
 
-        for(OrderItemRequest itemRequest : orderRequest.items()){
 
-            Product product = productRepo.findById(itemRequest.productId())
-                    .orElseThrow(() -> new RuntimeException("Product not found"));
+        for (OrderItemRequest itemReq : request.items()) {
 
-            product.setStockQuantity(product.getStockQuantity() - itemRequest.quantity());
+            Product product = productRepo.findById(itemReq.productId())
+                    .orElseThrow(() ->
+                            new RuntimeException("Product not found"));
+
+
+            // Update stock
+            product.setStockQuantity(
+                    product.getStockQuantity() - itemReq.quantity()
+            );
+
             productRepo.save(product);
 
+
+            // Remove old product embedding
+            String filter = String.format(
+                    "productId == %s",
+                    String.valueOf(product.getId())
+            );
+
+            vectorStore.delete(filter);
+
+
+            // Create updated product content
+            String updatedContent = String.format("""
+                    
+                    Product Name: %s
+                    Description: %s
+                    Brand: %s
+                    Category: %s
+                    Price: %.2f
+                    Release Date: %s
+                    Available: %s
+                    Stock: %s
+                    
+                    """,
+                    product.getName(),
+                    product.getDescription(),
+                    product.getBrand(),
+                    product.getCategory(),
+                    product.getPrice(),
+                    product.getReleaseDate(),
+                    product.isProductAvailable(),
+                    product.getStockQuantity()
+            );
+
+
+            // Create new product document
+            Document updatedDoc = new Document(
+                    UUID.randomUUID().toString(),
+                    updatedContent,
+                    Map.of(
+                            "productId",
+                            String.valueOf(product.getId())
+                    )
+            );
+
+
+            // Add updated product embedding
+            vectorStore.add(List.of(updatedDoc));
+
+
+            // Create order item
             OrderItem orderItem = OrderItem.builder()
                     .product(product)
-                    .quantity(itemRequest.quantity())
-                    .totalPrice(product.getPrice().multiply(BigDecimal.valueOf(itemRequest.quantity())))
+                    .quantity(itemReq.quantity())
+                    .totalPrice(
+                            product.getPrice()
+                                    .multiply(
+                                            BigDecimal.valueOf(itemReq.quantity())
+                                    )
+                    )
                     .order(order)
                     .build();
 
             orderItems.add(orderItem);
         }
 
+
+        // Add items to order
         order.setOrderItem(orderItems);
-        Order savedOrder =  orderRepo.save(order);
 
-        List<OrderItemResponse>  itemResponses = new ArrayList<>();
 
-        for(OrderItem item : order.getOrderItem()){
+        // Save order
+        Order savedOrder = orderRepo.save(order);
 
-            OrderItemResponse orderItemResponse = new OrderItemResponse(
-                    item.getProduct().getName(),
-                    item.getQuantity(),
-                    item.getTotalPrice()
-            );
+
+        // Prepare response
+        List<OrderItemResponse> itemResponses = new ArrayList<>();
+
+        for (OrderItem item : order.getOrderItem()) {
+
+            OrderItemResponse orderItemResponse =
+                    new OrderItemResponse(
+                            item.getProduct().getName(),
+                            item.getQuantity(),
+                            item.getTotalPrice()
+                    );
+
             itemResponses.add(orderItemResponse);
         }
 
-        OrderResponse orderResponse = new OrderResponse(savedOrder.getOrderId(), savedOrder.getCustomerName(), savedOrder.getEmail(), savedOrder.getStatus(), savedOrder.getOrderDate(), itemResponses);
+
+        OrderResponse orderResponse = new OrderResponse(
+                savedOrder.getOrderId(),
+                savedOrder.getCustomerName(),
+                savedOrder.getEmail(),
+                savedOrder.getStatus(),
+                savedOrder.getOrderDate(),
+                itemResponses
+        );
 
         return orderResponse;
     }
 
+
+    @Transactional
     public List<OrderResponse> getAllOrderResponses() {
 
         List<Order> orders = orderRepo.findAll();
+
         List<OrderResponse> orderResponses = new ArrayList<>();
 
-        for(Order order : orders){
 
-            List<OrderItemResponse> orderItemResponses = new ArrayList<>();
+        for (Order order : orders) {
+
+            List<OrderItemResponse> itemResponses =
+                    new ArrayList<>();
 
 
-            for(OrderItem item : order.getOrderItem()){
-                OrderItemResponse orderItemResponse = new OrderItemResponse(
-                        item.getProduct().getName(),
-                        item.getQuantity(),
-                        item.getTotalPrice()
-                );
-                orderItemResponses.add(orderItemResponse);
+            for (OrderItem item : order.getOrderItem()) {
+
+                OrderItemResponse orderItemResponse =
+                        new OrderItemResponse(
+                                item.getProduct().getName(),
+                                item.getQuantity(),
+                                item.getTotalPrice()
+                        );
+
+                itemResponses.add(orderItemResponse);
             }
+
 
             OrderResponse orderResponse = new OrderResponse(
                     order.getOrderId(),
@@ -98,8 +206,9 @@ public class OrderService {
                     order.getEmail(),
                     order.getStatus(),
                     order.getOrderDate(),
-                    orderItemResponses
+                    itemResponses
             );
+
             orderResponses.add(orderResponse);
         }
 
