@@ -38,7 +38,7 @@ public class QuestionService {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<String> addQuestion(Question question) {
+    public ResponseEntity<String> addOrUpdateQuestion(Question question) {
             try {
                 question.setId(null);
                 questionRepo.save(question);
@@ -49,5 +49,19 @@ public class QuestionService {
             }
 
         return new ResponseEntity<>("Error Cannot Add Question", HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<String> deleteQuestion(Question question) {
+
+        try {
+            questionRepo.delete(question);
+            return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>("Error Cannot Delete Question", HttpStatus.BAD_REQUEST);
+
     }
 }

@@ -30,6 +30,18 @@ public class QuestionController {
 
     @PostMapping("add")
     public ResponseEntity<String> addQuestion(@RequestBody Question question){
-        return questionService.addQuestion(question);
+        return questionService.addOrUpdateQuestion(question);
     }
+
+    @PutMapping("update")
+    public ResponseEntity<String> updateQuestion(@RequestBody Question question){
+        return questionService.addOrUpdateQuestion(question);
+    }
+
+    @DeleteMapping("delete")
+    public ResponseEntity<String> deleteQuestion(@RequestBody Question question){
+        return questionService.deleteQuestion(question);
+    }
+
+
 }
