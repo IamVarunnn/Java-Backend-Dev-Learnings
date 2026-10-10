@@ -17,8 +17,13 @@ public class QuestionService {
         return questionRepo.findAll();
     }
 
-
     public List<Question> getQuestionsByCategory(String category) {
         return questionRepo.findByCategory(category);
+    }
+
+    public String addQuestion(Question question) {
+            question.setId(null);
+             questionRepo.save(question);
+             return "Success";
     }
 }

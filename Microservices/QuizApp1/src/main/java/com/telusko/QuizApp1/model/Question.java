@@ -12,7 +12,7 @@ import lombok.Data;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String questionTitle;
     private String option1;
     private String option2;
