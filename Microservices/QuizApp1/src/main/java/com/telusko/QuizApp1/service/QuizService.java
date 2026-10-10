@@ -4,6 +4,7 @@ package com.telusko.QuizApp1.service;
 import com.telusko.QuizApp1.model.Question;
 import com.telusko.QuizApp1.model.QuestionWrapper;
 import com.telusko.QuizApp1.model.Quiz;
+import com.telusko.QuizApp1.model.Response;
 import com.telusko.QuizApp1.repo.QuestionRepo;
 import com.telusko.QuizApp1.repo.QuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,22 @@ public class QuizService {
 
         return new ResponseEntity<>(questionsForUser, HttpStatus.OK);
 
+    }
+
+    public ResponseEntity<Integer> calculateResult(Integer id, List<Response> responses) {
+        Quiz quiz = quizRepo.findById(id).get();
+
+        List<Question> questionList = quiz.getQuestionList();
+
+        int correct = 0;
+        int i = 0;
+        for(Response response : responses){
+
+            if(response.getResponse().equals(questionList.get(i).getRightAnswer())){
+                correct++;
+            }
+            i++;
+        }
+        return new ResponseEntity<>(correct, HttpStatus.OK);
     }
 }
