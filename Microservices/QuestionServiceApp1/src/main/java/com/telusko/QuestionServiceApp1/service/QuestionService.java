@@ -88,9 +88,9 @@ public class QuestionService {
             wrapper.setId(question.getId());
             wrapper.setQuestionTitle(question.getQuestionTitle());
             wrapper.setOption1(question.getOption1());
-            wrapper.setOption1(question.getOption2());
-            wrapper.setOption1(question.getOption3());
-            wrapper.setOption1(question.getOption4());
+            wrapper.setOption2(question.getOption2());
+            wrapper.setOption3(question.getOption3());
+            wrapper.setOption4(question.getOption4());
 
             wrappers.add(wrapper);
         }
@@ -102,12 +102,21 @@ public class QuestionService {
     public ResponseEntity<Integer> getScore(List<Response> responses) {
 
         int correct = 0;
-        for(Response response : responses){
-            Question question = questionRepo.findById(response.getId()).get();
-            if(response.getResponse().equals(question.getRightAnswer())) {
+
+        for (Response response : responses) {
+
+            Question question = questionRepo.findById(response.getId())
+                    .orElseThrow(() -> new RuntimeException(
+                            "Question not found with ID: " + response.getId()
+                    ));
+
+            if (response.getResponse() != null
+                    && response.getResponse().equalsIgnoreCase(
+                    question.getRightAnswer())) {
                 correct++;
             }
         }
+
         return new ResponseEntity<>(correct, HttpStatus.OK);
     }
 }
