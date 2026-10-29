@@ -5,6 +5,7 @@ import unplugged from "../assets/unplugged.png";
 
 const Home = ({ selectedCategory }) => {
   const { data, isError, addToCart, refreshData } = useContext(AppContext);
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastProduct, setToastProduct] = useState(null);
@@ -17,14 +18,8 @@ const Home = ({ selectedCategory }) => {
   }, [refreshData, isDataFetched]);
 
   useEffect(() => {
-    console.log("PRODUCT DATA:", data);
-
-      if (data.length > 0) {
-        console.log("FIRST PRODUCT:", data[0]);
-        console.log("IMAGE DATE:", data[0].imageDate);
-        console.log("IMAGE DATA:", data[0].imageData);
-        console.log("IMAGE TYPE:", data[0].imageType);
-      }
+    console.log(data, 'data from home page');
+    console.log("PRODUCT FROM API:", data[0]);
   }, [data]);
 
   useEffect(() => {
@@ -100,7 +95,7 @@ const Home = ({ selectedCategory }) => {
             {toastProduct && (
               <div className="d-flex align-items-center">
                 <img 
-                  src={convertBase64ToDataURL(toastProduct.imageData, toastProduct.imageType)} 
+                  src={convertBase64ToDataURL(toastProduct.imageData)} 
                   alt={toastProduct.name} 
                   className="me-2 rounded" 
                   width="40" 
@@ -127,20 +122,20 @@ const Home = ({ selectedCategory }) => {
             </div>
           ) : (
             filteredProducts.map((product) => {
-              const { id, brand, name, price, productAvailable, imageDate, stockQuantity } = product;
+              const { id, brand, name, price, productAvailable, imageData, stockQuantity } = product;
               
               return (
                 <div className="col" key={id}>
                   <div className={`card h-100 shadow-sm ${!productAvailable ? 'bg-light' : ''}`}>
                     <Link to={`/product/${id}`} className="text-decoration-none text-dark">
                       <img
-                        src={convertBase64ToDataURL(imageDate, product.imageType)} 
-                        alt={name}
-                        className="card-img-top p-2"
-                        style={{ height: "150px", objectFit: "cover" }}
-                        onError={(e) => {
-                          e.target.src = unplugged; // Fallback image if conversion fails
-                        }}
+                          src={`${baseUrl}/api/product/${id}/image`}
+                          alt={name}
+                          className="card-img-top p-2"
+                          style={{ height: "150px", objectFit: "cover" }}
+                          onError={(e) => {
+                              e.target.src = unplugged;
+                          }}
                       />
                       <div className="card-body d-flex flex-column">
                         <h5 className="card-title">{name.toUpperCase()}</h5>

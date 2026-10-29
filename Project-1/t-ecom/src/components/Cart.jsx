@@ -14,7 +14,22 @@ const Cart = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    setCartItems(cart.length ? cart : []);
+    const fetchImagesAndUpdateCart = async () => {
+      console.log("Cart", cart);
+      try {
+        const response = await axios.get(`${baseUrl}/api/products`);
+        console.log("cart", cart);
+        setCartItems(cart);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    if (cart.length) {
+      fetchImagesAndUpdateCart();
+    } else {
+      setCartItems([]);
+    }
   }, [cart]);
 
   useEffect(() => {
@@ -58,7 +73,22 @@ const Cart = () => {
     const newCartItems = cartItems.filter((item) => item.id !== itemId);
     setCartItems(newCartItems);
   };
+  const convertBase64ToDataURL = (base64String, mimeType = 'image/jpeg') => {
+    if (!base64String) return unplugged; // Return fallback image if no data
 
+    // If it's already a data URL, return as is
+    if (base64String.startsWith('data:')) {
+      return base64String;
+    }
+
+    // If it's already a URL, return as is
+    if (base64String.startsWith('http')) {
+      return base64String;
+    }
+
+    // Convert base64 string to data URL
+    return `data:${mimeType};base64,${base64String}`;
+  };
   const handleCheckout = async () => {
     try {
       for (const item of cartItems) {
@@ -130,7 +160,7 @@ const Cart = () => {
                             <td>
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={`${baseUrl}/api/product/${item.id}/image`}
+                                  src={convertBase64ToDataURL(item.imageData)}
                                   alt={item.name}
                                   className="rounded me-3"
                                   width="80"
